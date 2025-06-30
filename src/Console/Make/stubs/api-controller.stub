@@ -1,0 +1,58 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\ApiController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use App\Repositories\{{ model }}Repository;
+use App\Http\Resources\{{resource}};
+use App\Http\Resources\{{ model }}Collection;
+use App\Http\Requests\{{ storeRequest }};
+use App\Http\Requests\{{ updateRequest }};
+
+class {{ class }} extends ApiController
+{
+    public function __construct({{ model }}Repository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+         $models = $this->repository->getPaginateList($request);
+
+         return $this->respondWithCollection(new {{ model }}Collection($models));
+    }
+
+    public function show({{ model }} ${{ modelVariable }}): JsonResponse
+    {
+        return $this->respondWithItem(new {{resource}}(${{ modelVariable }}));
+    }
+
+
+    public function store({{ storeRequest }} $request)
+    {
+        ${{ modelVariable }} = {{ model }}::create($request->validated());
+
+        return $this->respondCreateItem(new {{resource}}(${{ modelVariable }}));
+    }
+
+
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    {
+        ${{ modelVariable }}->update($request->all());
+        ${{ modelVariable }}->refresh();
+
+        return $this->respondUpdateItem(new {{resource}}(${{ modelVariable }}));
+    }
+
+
+    public function destroy({{ model }} ${{ modelVariable }})
+    {
+         ${{ modelVariable }}->delete();
+
+         return $this->respondDeleteItem();
+    }
+}

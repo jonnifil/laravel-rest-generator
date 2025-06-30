@@ -1,0 +1,30 @@
+{
+  "name": "jonnifil/laravel-rest-generator",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "jonni",
+      "email": "132-62@mail.ru"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "laravel/framework": ">=v10.0.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "v10.4.0",
+    "phpunit/phpunit": "^11.5.3|^12.0.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Jonnifil\\RestPackage\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Jonnifil\\RestPackage\\Test\\": "tests/"
+    }
+  }
+}
