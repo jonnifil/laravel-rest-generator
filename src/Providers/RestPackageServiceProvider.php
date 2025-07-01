@@ -2,6 +2,10 @@
 
 namespace Jonnifil\RestPackage\Providers;
 
+use Jonnifil\RestPackage\Console\Make\MakeRepositoryCommand;
+use Jonnifil\RestPackage\Console\Make\MakeRestApiControllerCommand;
+use Jonnifil\RestPackage\Console\Make\RestApiCommand;
+use Jonnifil\RestPackage\Console\Make\PrintRouteCommand;
 use Illuminate\Support\ServiceProvider;
 
 class RestPackageServiceProvider extends ServiceProvider
@@ -10,7 +14,6 @@ class RestPackageServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
-            $publishes = [];
             if (! file_exists(app_path('Http/Controllers/Api/ApiController.php'))) {
                 $publishes[__DIR__ . '/../ApiController.php'] = app_path('Http/Controllers/Api/ApiController.php');
             }
@@ -20,6 +23,12 @@ class RestPackageServiceProvider extends ServiceProvider
             }
 
             $this->publishes($publishes);
+            $this->commands([
+                MakeRepositoryCommand::class,
+                MakeRestApiControllerCommand::class,
+                PrintRouteCommand::class,
+                RestApiCommand::class,
+            ]);
         }
     }
 }

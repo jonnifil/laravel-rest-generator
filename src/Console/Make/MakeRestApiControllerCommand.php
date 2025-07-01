@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Make;
+namespace Jonnifil\RestPackage\Console\Make;
 
 use Illuminate\Routing\Console\ControllerMakeCommand;
 use Symfony\Component\Console\Input\InputArgument;

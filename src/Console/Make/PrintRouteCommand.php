@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Jonnifil\RestPackage\Console\Make;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
