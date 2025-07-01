@@ -12,6 +12,6 @@
 форм-реквесты создания и обновления ModelName, 
 в файл routes/rest.php будет записан соответствующий модели роут apiResource (если файла нет, то он будет создан при первом вызове команды) 
 4. Файл routes/rest.php надо будет вызвать в файле routes/api.php например:
-   Route::group(['prefix' => 'rest'], function () {
+   `Route::group(['prefix' => 'rest'], function () {
         include 'rest.php';
-   });
+   });`
