@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Services\Auth\FilterMap;
-use App\Services\Auth\Filters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;

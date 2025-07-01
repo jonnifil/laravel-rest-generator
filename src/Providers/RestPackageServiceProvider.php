@@ -22,6 +22,10 @@ class RestPackageServiceProvider extends ServiceProvider
                 $publishes[__DIR__ . '/../BaseRepository.php'] = app_path('Repositories/BaseRepository.php');
             }
 
+            if (! file_exists(app_path('Services/Auth/FilterMap.php'))) {
+                $publishes[__DIR__ . '/../FilterMap.php'] = app_path('Services/Auth/FilterMap.php');
+            }
+
             $this->publishes($publishes);
             $this->commands([
                 MakeRepositoryCommand::class,
