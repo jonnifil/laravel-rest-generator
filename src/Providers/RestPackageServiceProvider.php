@@ -4,6 +4,9 @@ namespace Jonnifil\RestPackage\Providers;
 
 use Jonnifil\RestPackage\Console\Make\MakeRepositoryCommand;
 use Jonnifil\RestPackage\Console\Make\MakeRestApiControllerCommand;
+use Jonnifil\RestPackage\Console\Make\ModelCustomMakeCommand;
+use Jonnifil\RestPackage\Console\Make\RequestCustomMakeCommand;
+use Jonnifil\RestPackage\Console\Make\ResourceCustomMakeCommand;
 use Jonnifil\RestPackage\Console\Make\RestApiCommand;
 use Jonnifil\RestPackage\Console\Make\PrintRouteCommand;
 use Illuminate\Support\ServiceProvider;
@@ -14,8 +17,8 @@ class RestPackageServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
-            if (! file_exists(app_path('Http/Controllers/Api/ApiController.php'))) {
-                $publishes[__DIR__ . '/../ApiController.php'] = app_path('Http/Controllers/Api/ApiController.php');
+            if (! file_exists(app_path('Http/Controllers/ApiController.php'))) {
+                $publishes[__DIR__ . '/../ApiController.php'] = app_path('Http/Controllers/ApiController.php');
             }
 
             if (! file_exists(app_path('Http/Repositories/BaseRepository.php'))) {
@@ -32,6 +35,9 @@ class RestPackageServiceProvider extends ServiceProvider
                 MakeRestApiControllerCommand::class,
                 PrintRouteCommand::class,
                 RestApiCommand::class,
+                ModelCustomMakeCommand::class,
+                RequestCustomMakeCommand::class,
+                ResourceCustomMakeCommand::class,
             ]);
         }
     }

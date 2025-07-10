@@ -59,6 +59,33 @@ class MakeRestApiControllerCommand extends ControllerMakeCommand
         ]);
     }
 
+    /**
+     * Generate the form requests for the given model and classes.
+     *
+     * @param  string  $modelClass
+     * @param  string  $storeRequestClass
+     * @param  string  $updateRequestClass
+     * @return array
+     */
+    protected function generateFormRequests($modelClass, $storeRequestClass, $updateRequestClass)
+    {
+        $storeRequestClass = 'Store'.class_basename($modelClass).'Request';
+
+        $this->call('make:request-custom', [
+            'name' => $storeRequestClass,
+            '--model' => $modelClass,
+        ]);
+
+        $updateRequestClass = 'Update'.class_basename($modelClass).'Request';
+
+        $this->call('make:request-custom', [
+            'name' => $updateRequestClass,
+            '--model' => $modelClass,
+        ]);
+
+        return [$storeRequestClass, $updateRequestClass];
+    }
+
     protected function getDefaultNamespace($rootNamespace): string
     {
         return parent::getDefaultNamespace($rootNamespace) . '\\Api';
@@ -117,12 +144,12 @@ class MakeRestApiControllerCommand extends ControllerMakeCommand
         $modelClass = $this->parseModel($this->option('model'));
 
         if (! class_exists($modelClass)) {
-            $this->call('make:model', ['name' => $modelClass]);
+            $this->call('make:model-custom', ['name' => $modelClass]);
         }
 
         $this->call('make:repository', ['name' => class_basename($modelClass) . 'Repository', '--model' => class_basename($modelClass)]);
 
-        $this->call('make:resource', ['name' => class_basename($modelClass) . 'Resource']);
+        $this->call('make:resource-custom', ['name' => class_basename($modelClass) . 'Resource', '--model' => class_basename($modelClass)]);
 
         $this->call('make:resource', ['name' => class_basename($modelClass) . 'Collection']);
 
